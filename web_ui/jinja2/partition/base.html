@@ -9,39 +9,49 @@
     {% endblock %}
 </head>
 <body>
-{% block header %}
-{% include 'partition/header.html' %}
-{% endblock %}
-{% block sidebar %}
-{% include 'partition/sidebar.html' %}
-{% endblock %}
-<div class="main-content">
-        <div class="page-content">
-            <div class="container-fluid">
-                <!-- start page title -->
-                <div class="row">
-                    <div class="col-12">
-                        <div class="page-title-box d-sm-flex align-items-center justify-content-between">
-                            <h4 class="mb-sm-0 font-size-18">{{ heading|default() }}</h4>
+<div class="wrapper">
+    {% block sidebar %}
+    {% endblock %}
 
-                            <div class="page-title-right">
-                                <ol class="breadcrumb m-0">
-                                    <li class="breadcrumb-item"><a href="javascript: void(0);">{{ pageview|default() }}</a></li>
-                                    <li class="breadcrumb-item active">{{ heading|default }}</li>
-                                </ol>
-                            </div>
+    <div id="content">
+        {% block contents %}
+            {% block navbar %}
+                <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                    <div class="container-fluid">
 
+                        <button type="button" id="sidebarCollapse" class="btn btn-info">
+                            <i class="bx bx-menu fa-align-left"></i>
+                        </button>
+                        <button class="btn btn-dark d-inline-block d-lg-none ml-auto" type="button"
+                                data-toggle="collapse"
+                                data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                                aria-expanded="false" aria-label="Toggle navigation">
+                            <i class="bx bx-menu-alt-right fa-align-justify"></i>
+                        </button>
+
+                        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                            <ul class="nav navbar-nav ml-auto">
+                                <li class="nav-item">
+                                    <a class="nav-link"
+                                       href="#">{{ heading|default(request.resolver_match.url_name) }}</a>
+                                </li>
+                                {% for nav_intem in nav_items %}
+                                    <li class="nav-item">
+                                        <a class="nav-link"
+                                           href="{{ nav_intem.link }}">{{ nav_item.name }}</a>
+                                    </li>
+                                {% endfor %}
+                            </ul>
                         </div>
                     </div>
-                </div>
-                {% block contents %}
-                {% endblock %}
-            </div>
-        </div>
+                </nav>
+            {% endblock %}
+        {% endblock %}
     </div>
     {% block footer %}
     {% endblock %}
-    {% block javascript %}
-    {% endblock %}
+</div>
+{% block javascript %}
+{% endblock %}
 </body>
 </html>

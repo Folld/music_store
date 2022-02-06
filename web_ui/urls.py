@@ -1,7 +1,7 @@
 from django.urls import path
-from web_ui.views import IndexView
+from web_ui.views import ElectricGuitarsView, HomePageView
 
 
 urlpatterns = [
-    path('', IndexView.as_view(), name='index')
+    path('', HomePageView.as_view(), name='homepage')
 ]
