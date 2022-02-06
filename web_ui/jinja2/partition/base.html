@@ -9,18 +9,19 @@
     {% endblock %}
 </head>
 <body>
-<div class="d-block">
-    {% block header %}
-        {% include 'partition/header.html' %}
-    {% endblock %}
+<div class="wrapper">
     {% block sidebar %}
-        {% include 'partition/sidebar.html' %}
     {% endblock %}
-    {% block contents %}
+
+    <div id="content">
+        {% block contents %}
+            {% block navbar %}
+            {% endblock %}
+        {% endblock %}
+    </div>
+    {% block footer %}
     {% endblock %}
 </div>
-{% block footer %}
-{% endblock %}
 {% block javascript %}
 {% endblock %}
 </body>
