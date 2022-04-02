@@ -8,9 +8,40 @@
 
 <!-- Page Content  -->
 {% block contents %}
-{% block navbar %}
-    {{ super() }}
-{% endblock navbar %}
+    {% block navbar %}
+        {{ super() }}
+    {% endblock navbar %}
+    <div class="container">
+        <div class="row">
+            {% for item in items %}
+                <div class="col-lg-6 col-sm-12 p-3">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="p-2">
+                                <a href="{{ url('items-detail', args=[item.id]) }}">
+                                    <img class="card-img" src="{{ item.image }}" alt="image">
+                                </a>
+                            </div>
+                            <div class="p-2">
+                                <h6 class="card-title">{{ item.name }}
+                                    {% if item.is_new %}
+                                        <span class="badge bg-secondary">New</span>
+                                    {% endif %}
+                                </h6>
+                                <p class="card-text">{{ item.vendor_code|default("") }}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% else %}
+                <div class="card">
+                    <div class="card-title">
+                        Does not find any items for {{ heading }}...
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
 {% endblock contents %}
 
 {% block javascript %}

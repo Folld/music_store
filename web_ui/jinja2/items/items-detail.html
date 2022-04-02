@@ -11,6 +11,28 @@
 {% block navbar %}
     {{ super() }}
 {% endblock navbar %}
+    <div class="container">
+        <div class="m-2">
+            <a class="text-primary" href="{{ url('items', args=[item.category.id]) }}">
+                <h5 class="card-title">{{ item.category.name }}</h5>
+            </a>
+        </div>
+            <div class="card">
+                <div class="p-3">
+                    <h4  class="card-title">{{ item.name }}</h4>
+                    <p class="card-text">Model#: {{ item.vendor_code|default("") }}</p>
+                </div>
+                <div class="card-body">
+                    <div class="col-xl-6 col-md-12">
+                        <img class="img-responsive card-img img-rounded" src="{{ item.image }}" alt="image">
+                    </div>
+
+                    <div>
+                        <p class="text-black"><small>{{ item.description }}</small></p>
+                    </div>
+                </div>
+            </div>
+    </div>
 {% endblock contents %}
 
 {% block javascript %}

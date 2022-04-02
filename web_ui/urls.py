@@ -1,7 +1,9 @@
 from django.urls import path
-from web_ui.views import ElectricGuitarsView, HomePageView
+from web_ui import views
 
 
 urlpatterns = [
-    path('', HomePageView.as_view(), name='homepage')
+    path('', views.HomePageView.as_view(), name='homepage'),
+    path('items/<int:category>', views.ItemsView.as_view(), name='items'),
+    path('items/detail/<int:pk>', views.ItemsDetailView.as_view(), name='items-detail')
 ]
