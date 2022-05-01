@@ -1,0 +1,16 @@
+{% extends 'partition/base.html' %}
+{% block css %}
+    {% include 'partition/css.html' %}
+{% endblock %}
+
+<!-- Page Content  -->
+{% block contents %}
+
+{% endblock contents %}
+
+{% block javascript %}
+    {% include 'partition/js.html' %}
+
+    <!-- app js -->
+    <script src="{{ static('js/app.js') }}"></script>
+{% endblock %}

@@ -11,35 +11,35 @@
                     <a href="{{ url('items', args=[4])}}">Electric guitars</a>
                 </li>
                 <li>
-                    <a href="#">Acoustic guitars</a>
+                    <a href="{{ url('items', args=[5]) }}">Acoustic guitars</a>
                 </li>
                 <li>
-                    <a href="#">Bass guitars</a>
+                    <a href="{{ url('items', args=[6]) }}">Bass guitars</a>
                 </li>
                 <li>
-                    <a href="#">Strings</a>
+                    <a href="{{ url('items', args=[7]) }}">Strings</a>
                 </li>
             </ul>
         </li>
         <li>
-            <a href="#"><i class="bx bxs-guitar-amp"></i><span>AMP</span></a>
+            <a href="{{ url('items', args=[3]) }}"><i class="bx bxs-guitar-amp"></i><span>AMP</span></a>
         </li>
         <li>
             <a href="#drumsSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Drums</a>
             <ul class="collapse list-unstyled" id="drumsSubmenu">
                 <li>
-                    <a href="#">Kits</a>
+                    <a href="{{ url('items', args=[8]) }}">Kits</a>
                 </li>
                 <li>
-                    <a href="#">Accessories</a>
+                    <a href="{{ url('items', args=[9]) }}">Accessories</a>
                 </li>
                 <li>
-                    <a href="#">Cymbals</a>
+                    <a href="{{ url('items', args=[10]) }}">Cymbals</a>
                 </li>
             </ul>
         </li>
         <li>
-            <a href="#">Orders</a>
+            <a href="{{ url('orders-list') }}">Orders</a>
         </li>
         <li>
             <a href="#">Contact</a>
@@ -54,7 +54,7 @@
             <a href="https://telegram.me/dartputin" class="article">Telegram</a>
         </li>
         <li>
-            <a href="#" class="article">email</a>
+            <a href="mailto:vamorugin@gmail.com" class="article">Send mail</a>
         </li>
     </ul>
 </nav>

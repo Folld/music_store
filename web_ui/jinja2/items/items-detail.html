@@ -24,7 +24,9 @@
                 </div>
                 <div class="card-body">
                     <div class="col-xl-6 col-md-12">
-                        <img class="img-responsive card-img img-rounded" src="{{ item.image }}" alt="image">
+                        {% for picture in item.item_pictures.all() %}
+                            <img class="img-responsive card-img img-rounded" src="{{ picture.url }}" alt="image">
+                        {% endfor %}
                     </div>
 
                     <div>

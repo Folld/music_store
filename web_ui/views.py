@@ -1,6 +1,10 @@
+from django.conf import settings
+from django.shortcuts import redirect
 from django.views.generic import ListView, TemplateView, DetailView
+from django.contrib.auth.decorators import login_required
 
-from web_ui.models import ShopItemsModel, CategoryItemsModel
+from items.models import ShopItemsModel, CategoryItemsModel
+from orders.models import OrderModel
 
 
 class ItemsView(ListView):
@@ -42,5 +46,22 @@ class HomePageView(TemplateView):
         kwargs.update({
             'pageview': 'Homepage',
             'heading': 'Home',
+        })
+        return super().get_context_data(**kwargs)
+
+
+class OrdersView(ListView):
+    template_name = 'orders/orders-list.html'
+    model = OrderModel
+
+    def get(self, request, *args, **kwargs):
+        if not self.request.user.is_authenticated:
+            return redirect('%s?next=%s' % (settings.LOGIN_URL, request.path))
+        return super().get(request, *args, **kwargs)
+
+    def get_context_data(self, **kwargs):
+        kwargs.update({
+            'pageview': 'Orders',
+            'heading': 'Orders',
         })
         return super().get_context_data(**kwargs)

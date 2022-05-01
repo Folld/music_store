@@ -38,8 +38,10 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
-    'api',
     'web_ui',
+    'items',
+    'orders',
+    'authorization',
 ]
 
 MIDDLEWARE = [
@@ -63,7 +65,7 @@ TEMPLATES = [
     #         'context_processors': [
     #             'django.template.context_processors.debug',
     #             'django.template.context_processors.request',
-    #             'django.contrib.auth.context_processors.auth',
+    #             'django.contrib.authorization.context_processors.authorization',
     #             'django.contrib.messages.context_processors.messages',
     #         ],
     #     },
@@ -97,16 +99,16 @@ DATABASES = {
 
 AUTH_PASSWORD_VALIDATORS = [
     {
-        'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
+        'NAME': 'django.contrib.authorization.password_validation.UserAttributeSimilarityValidator',
     },
     {
-        'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
+        'NAME': 'django.contrib.authorization.password_validation.MinimumLengthValidator',
     },
     {
-        'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
+        'NAME': 'django.contrib.authorization.password_validation.CommonPasswordValidator',
     },
     {
-        'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
+        'NAME': 'django.contrib.authorization.password_validation.NumericPasswordValidator',
     },
 ]
 
@@ -132,3 +134,5 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+LOGIN_REDIRECT_URL = '/'
