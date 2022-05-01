@@ -1,0 +1,46 @@
+{% extends 'partition/base.html' %}
+{% block css %}
+    {% include 'partition/css.html' %}
+{% endblock %}
+{% block sidebar %}
+    {% include 'partition/sidebar.html' %}
+{% endblock %}
+
+<!-- Page Content  -->
+{% block contents %}
+    {% block navbar %}
+        {{ super() }}
+        <div class="row">
+            {% for cart in carts %}
+                <div class="col-xl-6 col-lg-12">
+                    <div class="card p-3">
+                        <h4 class="card-title">{{ cart.item.name }}</h4>
+                        <p class="card-text">{{ cart.item.description[:150] + '...' }}</p>
+                        <img src="{{ cart.item.item_pictures.first().url }}" alt="img">
+                        <div class="card-footer">
+                            <button class="btn btn-outline-primary mx-3">Order</button>
+                            <a href="{{ url('cart-delete', args=[cart.item.pk]) }}">
+                                <button type="button" class="btn btn-outline-danger mx-3">Delete</button>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            {% else %}
+                <div class="container" style="max-width: 500px">
+                    <div class="card p-3 text-center">
+                        <img class="img img-responsive" height=300 width=400
+                             src="https://www.99fashionbrands.com/wp-content/uploads/2020/12/empty_cart.png"
+                             alt="Cart is empty...">
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% endblock navbar %}
+{% endblock contents %}
+
+{% block javascript %}
+    {% include 'partition/js.html' %}
+
+    <!-- app js -->
+    <script src="{{ static('js/app.js') }}"></script>
+{% endblock %}

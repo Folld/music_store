@@ -18,5 +18,5 @@ class RegistrationView(generic.FormView):
 
 def logout_view(request):
     logout(request)
-    return HttpResponseRedirect('/')
+    return HttpResponseRedirect(resolve_url(request.GET.get('next') or settings.LOGIN_REDIRECT_URL))
 

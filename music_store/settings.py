@@ -38,10 +38,12 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
+    'drf_yasg',
     'web_ui',
     'items',
     'orders',
     'authorization',
+    'cart',
 ]
 
 MIDDLEWARE = [
@@ -57,23 +59,24 @@ MIDDLEWARE = [
 ROOT_URLCONF = 'music_store.urls'
 
 TEMPLATES = [
-    # {
-    #     'BACKEND': 'django.template.backends.django.DjangoTemplates',
-    #     'DIRS': [],
-    #     'APP_DIRS': True,
-    #     'OPTIONS': {
-    #         'context_processors': [
-    #             'django.template.context_processors.debug',
-    #             'django.template.context_processors.request',
-    #             'django.contrib.authorization.context_processors.authorization',
-    #             'django.contrib.messages.context_processors.messages',
-    #         ],
-    #     },
-    # },
     {
-        'BACKEND': 'django.template.backends.jinja2.Jinja2',
+        'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [],
         'APP_DIRS': True,
+        'OPTIONS': {
+            'context_processors': [
+                'django.template.context_processors.debug',
+                'django.template.context_processors.request',
+                'django.contrib.messages.context_processors.messages',
+            ],
+        },
+    },
+    {
+        'BACKEND': 'django.template.backends.jinja2.Jinja2',
+        'DIRS': [
+            'web_ui/jinja2',
+        ],
+        'APP_DIRS': False,
         'OPTIONS': {
             'environment': 'music_store.jinja2.environment',
         }
