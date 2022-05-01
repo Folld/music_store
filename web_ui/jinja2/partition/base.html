@@ -43,7 +43,7 @@
                                 {% endfor %}
                             </ul>
                         </div>
-                    {% if request.user.is_authenteficated %}
+                    {% if request.user.is_authenticated %}
                         <a href="{{ url('logout') }}"><button type="button" class="btn btn-outline-secondary">Logout</button></a>
                     {% else %}
                         <a href="{{ url('sing_in') }}?next={{ request.path }}"><button type="button" class="btn btn-outline-secondary">Login</button></a>
