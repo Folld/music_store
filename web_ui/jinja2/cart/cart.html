@@ -16,14 +16,19 @@
                     <div class="card p-3">
                         <h4 class="card-title">{{ cart.item.name }}</h4>
                         <p class="card-text">{{ cart.item.description[:150] + '...' }}</p>
+                        <div><span class="badge bg-primary">{{ cart.item.price }}$</span></div>
                         <img src="{{ cart.item.item_pictures.first().url }}" alt="img">
                         <div class="card-footer">
-                            <button class="btn btn-outline-primary mx-3">Order</button>
                             <a href="{{ url('cart-delete', args=[cart.item.pk]) }}">
                                 <button type="button" class="btn btn-outline-danger mx-3">Delete</button>
                             </a>
                         </div>
                     </div>
+                </div>
+                <hr class="my-3">
+                <div class="m-2 text-center">
+                    <button class="btn btn-primary btn-lg mx-3">Order</button>
+                    <p>This is not a real order! The items will be added to the order history and the cart will be cleared.</p>
                 </div>
             {% else %}
                 <div class="container" style="max-width: 500px">
