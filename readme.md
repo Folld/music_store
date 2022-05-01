@@ -7,3 +7,6 @@
 <li>SQLITE</li>
 <li>Docker</li>
 <li>BOOTSTRAP</li>
+  
+preview:
+![image](https://user-images.githubusercontent.com/73252859/166139106-431f975a-aec8-40e8-a209-f5491a215853.png)
