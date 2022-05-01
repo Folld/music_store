@@ -40,7 +40,7 @@ class ItemsDetailView(DetailView):
 
 
 class HomePageView(TemplateView):
-    template_name = 'partition/starterpage.html'
+    template_name = 'homepage.html'
 
     def get_context_data(self, **kwargs):
         kwargs.update({
