@@ -1,0 +1,83 @@
+{% extends 'partition/base.html' %}
+{% block css %}
+    {% include 'partition/css.html' %}
+{% endblock %}
+{% block sidebar %}
+    {% include 'partition/sidebar.html' %}
+{% endblock %}
+
+<!-- Page Content  -->
+{% block contents %}
+    {% block navbar %}
+        {{ super() }}
+    {% endblock navbar %}
+    <div class="container">
+        <div class="row">
+            <div class="card">
+                <div class="card-header">
+                    <h4 class="card-title">Create order</h4>
+                </div>
+                <div class="card-body">
+                    <form method="post">
+                        <input name="csrfmiddlewaretoken" value="{{ csrf_token }}" hidden>
+                        <div class="form-group">
+                            <div class="col-12 m-2">
+                                <label for="address">Address</label>
+                                <input id="address" class="form-control" type="text" name="address"
+                                       placeholder="type address:" required minlength="3">
+                                <small id="addressHelp" class="form-text text-muted">This is just an example, no one is
+                                    using your data</small>
+                            </div>
+
+                            <div class="col-12 m-2">
+                                <label for="delivery_type">Delivery type</label>
+                                <select id="delivery_type" type="checkbox" name="delivery_type"
+                                        class="form-control col-2">
+                                    {% for id, name in delivery_types %}
+                                        <option value="{{ id }}">{{ name }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+
+                            <div class="col-12 m-2">
+                                <label for="deliveryPrice">Delivery price</label>
+                                <input id="deliveryPrice" class="form-control" type="number" value="0" disabled>
+                                <input type="number" name="delivery_price" value="0" hidden>
+                                <small id="deliveryHelp" class="form-text text-muted">Especially for you free shipping anywhere in the world</small>
+                            </div>
+
+                            <div class="col-12 m-2 card-footer">
+                                <p class="card-text text-black">Total price: {{ carts|sum(attribute='item.price') }}$</p>
+                                <p class="card-text text-black">{{ carts.count() }} items:</p>
+                            <div class="row">
+                                {% for cart in carts %}
+                                    <div class="col-3 card">
+                                        <div class="p-3">
+                                            <p class="card-text text-black mb-0">{{ cart.item.name }}</p>
+                                            <p class="card-text mb-0">{{ cart.item.price }}$</p>
+                                            <a href="{{ url('items-detail', args=[cart.item.id]) }}"><img class="img-fluid" src="{{ cart.item.item_pictures.first().url }}" alt=""></a>
+                                        </div>
+                                    </div>
+                                {% endfor %}
+                            </div>
+
+                            <div class="my-3">
+                                <button class="btn btn-outline-success" type="submit">Order</button>
+                            </div>
+
+                            </div>
+
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock contents %}
+
+{% block javascript %}
+    {% include 'partition/js.html' %}
+
+    <!-- app js -->
+    <script src="{{ static('js/app.js') }}"></script>
+{% endblock %}

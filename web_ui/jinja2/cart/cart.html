@@ -22,13 +22,15 @@
                                 <button type="button" class="btn btn-sm btn-outline-danger"><i class="bx bx-trash"></i></button>
                             </a>
                         </div>
-                        <img src="{{ cart.item.item_pictures.first().url }}" alt="img">
+                        <div>
+                            <a href="{{ url('items-detail', args=[cart.item.pk]) }}"><img class="img-fluid" src="{{ cart.item.item_pictures.first().url }}" alt="img"></a>
+                        </div>
                     </div>
                 </div>
                 {% if loop.last %}
-                    <hr class="my-3">
                     <div class="m-2 text-center">
-                        <button class="btn btn-primary btn-lg mx-3">Order</button>
+                        <h4 class="card-footer">Total price: {{ total_price.total_price }}$</h4>
+                        <a href="{{ url('order-create') }}"><button class="btn btn-primary btn-lg mx-3">Order</button></a>
                         <p>This is not a real order! The items will be added to the order history and the cart will be cleared.</p>
                     </div>
                 {% endif %}

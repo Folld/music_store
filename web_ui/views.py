@@ -1,12 +1,14 @@
 from django.conf import settings
+from django.db.models import F, Sum
 from django.shortcuts import redirect
 from django.urls import reverse_lazy
-from django.views.generic import ListView, TemplateView, DetailView
+from django.views.generic import ListView, TemplateView, DetailView, CreateView
 from django.http import HttpResponse, HttpResponseRedirect
 
 from cart.models import CartModel
 from items.models import ShopItemsModel, CategoryItemsModel
-from orders.models import OrderModel
+from orders.models import OrderModel, OrderItemsModel
+from web_ui.forms import OrderCreateForm
 
 
 class ItemsView(ListView):
@@ -74,10 +76,51 @@ class OrdersView(ListView):
             return redirect('%s?next=%s' % (settings.LOGIN_URL, request.path))
         return super().get(request, *args, **kwargs)
 
+    def get_queryset(self):
+        return super().get_queryset().filter(user=self.request.user)
+
     def get_context_data(self, **kwargs):
         kwargs.update({
             'pageview': 'Orders',
             'heading': 'Orders',
+        })
+        return super().get_context_data(**kwargs)
+
+
+class OrderCreateView(CreateView):
+    template_name = 'orders/order-create.html'
+    model = OrderModel
+    form_class = OrderCreateForm
+    success_url = reverse_lazy('orders-list')
+
+    def form_valid(self, form):
+        form.clean()
+        data = form.cleaned_data
+        user = self.request.user
+        carts = CartModel.objects.filter(user=user)
+        ordered_items = ShopItemsModel.objects.filter(id__in=carts.values('item'))
+        data.update({
+            "price": sum(ordered_items.values_list('price', flat=True)),
+            "user": user,
+        })
+        order = OrderModel(**data)
+        order.save()
+        order_items = []
+        for item in ordered_items:
+            order_items.append(OrderItemsModel(item=item, order=order))
+        OrderItemsModel.objects.bulk_create(order_items)
+        carts.delete()
+        return HttpResponseRedirect(redirect_to=reverse_lazy('orders-list'))
+
+    def form_invalid(self, form):
+        return super().form_invalid(form)
+
+    def get_context_data(self, **kwargs):
+        kwargs.update({
+            'pageview': 'Order create',
+            'heading': 'Order',
+            'carts': CartModel.objects.filter(user=self.request.user),
+            'delivery_types': self.model.DELIVERY_TYPES
         })
         return super().get_context_data(**kwargs)
 
@@ -100,6 +143,7 @@ class CartView(ListView):
         kwargs.update({
             'pageview': 'Cart',
             'heading': 'Cart',
+            'total_price': self.get_queryset().aggregate(total_price=Sum(F('item__price')))
         })
         return super().get_context_data(**kwargs)
 
