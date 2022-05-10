@@ -8,6 +8,6 @@
 <li>Docker</li>
 <li>BOOTSTRAP</li>
 <li>Redis</li>
-  
+<br>
 First of all I want to play around with Jinja2 templates a bit. I will not spend a lot of time on frontend layout and will use the Bootstrap framework. SQLite is my choice because it is easy. I will also include redis as a cashing solution.
   
